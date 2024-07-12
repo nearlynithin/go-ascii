@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	_ "image/png"
@@ -23,15 +24,11 @@ func main() {
 	bound := imgData.Bounds()
 	imgSet := image.NewRGBA(bound)
 
-	f, err := os.Create("out.txt")
-	if err != nil {
-		log.Fatal("error creating file")
-	}
-	defer f.Close()
-
-	heightscale:=2
-	for y := bound.Min.Y; y < bound.Max.Y; y+=heightscale {
-		for x := bound.Min.X; x < bound.Max.X; x++{
+	 heightscale:=3
+	 widthscale:=2
+	 factor:=2
+	for y := bound.Min.Y; y < bound.Max.Y; y+=heightscale*factor{
+		for x := bound.Min.X; x < bound.Max.X; x+=widthscale*factor{
 			oldPixel := imgData.At(x, y)
 			pixel := color.GrayModel.Convert(oldPixel)
 			imgSet.Set(x, y, pixel)
@@ -45,17 +42,17 @@ func main() {
 			intensity := (r8+g8+b8/3)
 			switch {
 			case intensity>= 255:
-				f.WriteString("@")
+				fmt.Print("@")
 			case intensity>=191:
-				f.WriteString("%")
+				fmt.Print("%")
 			case intensity>=127:
-				f.WriteString("#")
+				fmt.Print("#")
 			case intensity>=64:
-				f.WriteString("$")
+				fmt.Print("$")
 			default:
-				f.WriteString("   ")
+				fmt.Print(" ")
 			}
 		}
-		f.WriteString("\n")
+		fmt.Print("\n")
 	}
 }
