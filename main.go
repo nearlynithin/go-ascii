@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	_ "image/jpeg"
 	_ "image/png"
 	"log"
 	"os"
 )
 
 func main() {
-	test_img, err := os.Open("assets/golang.png")
+	test_img, err := os.Open("assets/pfp2.png")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -26,7 +27,7 @@ func main() {
 
 	 heightscale:=3
 	 widthscale:=2
-	 factor:=2
+	 factor:=6
 	for y := bound.Min.Y; y < bound.Max.Y; y+=heightscale*factor{
 		for x := bound.Min.X; x < bound.Max.X; x+=widthscale*factor{
 			oldPixel := imgData.At(x, y)
