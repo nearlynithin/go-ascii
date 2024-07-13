@@ -32,13 +32,10 @@ func main() {
 		log.Println("Unable to get terminal size")
 	}
 
-	term_w-=30
 
-	factor_w:=int(bound.Dx()/term_w)
-	factor_h:=int((bound.Dy()*factor_w)/bound.Dx())+4
+	factor_w:=int(bound.Dx()/term_w+2)
+	factor_h:=int((bound.Dy()*factor_w)/bound.Dx())+3
 
-	//  heightscale:=3
-	//  widthscale:=2
 	for y := bound.Min.Y; y < bound.Max.Y; y+=factor_h{
 		for x := bound.Min.X; x < bound.Max.X; x+=factor_w{
 			oldPixel := imgData.At(x, y)
@@ -53,14 +50,18 @@ func main() {
 			
 			intensity := (r8+g8+b8/3)
 			switch {
-			case intensity>= 255:
+			case intensity>= 240:
 				fmt.Print("@")
-			case intensity>=191:
+			case intensity>=200:
 				fmt.Print("%")
-			case intensity>=127:
+			case intensity>=160:
 				fmt.Print("#")
-			case intensity>=64:
+			case intensity>=120:
 				fmt.Print("$")
+			case intensity>=80:
+				fmt.Print("*")
+			case intensity>=40:
+				fmt.Print("`")
 			default:
 				fmt.Print(" ")
 			}
