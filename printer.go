@@ -15,12 +15,12 @@ func getRGB(newPixel color.Color) (uint8,uint8,uint8){
 		return red8, green8, blue8
 }
 
-func getIntensity(red, green, blue uint8) int {
-	return int((uint32(red) + uint32(green) + uint32(blue)) / 3)
+func getIntensity(red, green, blue uint8) float64 {
+	return (0.2126*float64(red) + 0.7152*float64(green) + 0.0722*float64(blue))
 }
 
 
-func asciiPrinter(intensity int){
+func asciiPrinter(intensity float64){
 	switch {
 	case intensity>= 240:
 		fmt.Print("@")
