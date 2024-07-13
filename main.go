@@ -8,6 +8,8 @@ import (
 	_ "image/png"
 	"log"
 	"os"
+
+	"golang.org/x/term"
 )
 
 func main() {
@@ -25,11 +27,20 @@ func main() {
 	bound := imgData.Bounds()
 	imgSet := image.NewRGBA(bound)
 
-	 heightscale:=3
-	 widthscale:=2
-	 factor:=6
-	for y := bound.Min.Y; y < bound.Max.Y; y+=heightscale*factor{
-		for x := bound.Min.X; x < bound.Max.X; x+=widthscale*factor{
+	term_w, _, err:= term.GetSize(0)
+	if err!=nil{
+		log.Println("Unable to get terminal size")
+	}
+
+	term_w-=30
+
+	factor_w:=int(bound.Dx()/term_w)
+	factor_h:=int((bound.Dy()*factor_w)/bound.Dx())+4
+
+	//  heightscale:=3
+	//  widthscale:=2
+	for y := bound.Min.Y; y < bound.Max.Y; y+=factor_h{
+		for x := bound.Min.X; x < bound.Max.X; x+=factor_w{
 			oldPixel := imgData.At(x, y)
 			pixel := color.GrayModel.Convert(oldPixel)
 			imgSet.Set(x, y, pixel)
