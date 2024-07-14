@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"log"
 
@@ -17,8 +18,23 @@ func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 		log.Println("Unable to get Terminal Size")
 	}
 
-	widthFactor := int(bound.Dx()/terminalWidth+2)
-	heigthFactor:= int((bound.Dy()*widthFactor)/bound.Dy()) +3
+	
+	fmt.Printf("Terminal width := %d\n",terminalWidth)
+	if terminalWidth>100{
+		if bound.Dx()>1000{
+
+			terminalWidth-=30
+		}else{
+			terminalWidth-=50
+		}	
+	}else{
+		terminalWidth-=10
+	}
+
+
+	widthFactor := int(bound.Dx()/terminalWidth)
+	heigthFactor:= widthFactor*2
+
 
 	return widthFactor, heigthFactor, imageSet
 }
