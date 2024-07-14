@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 )
 
-
+//retrieving data from the image
 func loadImage(fileName string) (image.Image, error){
 	filepath:= filepath.Join("assets", fileName)
 
@@ -21,7 +21,7 @@ func loadImage(fileName string) (image.Image, error){
 
 	imageData,_, err := image.Decode(file)
 	if err!=nil{
-		log.Println("File does not exist")
+		log.Println("Unable to read the file")
 	}
 
 	return imageData, nil

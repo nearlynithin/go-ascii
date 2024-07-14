@@ -8,7 +8,7 @@ import (
 	"golang.org/x/term"
 )
 
-
+//Creating a new blank image.
 func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 	bound := imageData.Bounds()
 	imageSet:= image.NewRGBA(bound)
@@ -18,7 +18,7 @@ func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 		log.Println("Unable to get Terminal Size")
 	}
 
-	
+	//TODO : Better algorithm for calculating aspect ratio as per the terminal size
 	fmt.Printf("Terminal width := %d\n",terminalWidth)
 	if terminalWidth>100{
 		if bound.Dx()>1000{
@@ -31,7 +31,7 @@ func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 		terminalWidth-=10
 	}
 
-
+	//basically the steps size for the for loops
 	widthFactor := int(bound.Dx()/terminalWidth)
 	heigthFactor:= widthFactor*2
 
