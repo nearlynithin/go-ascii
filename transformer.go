@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"image"
 	"log"
 
@@ -19,7 +18,10 @@ func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 	}
 
 	//TODO : Better algorithm for calculating aspect ratio as per the terminal size
-	fmt.Printf("Terminal width := %d\n",terminalWidth)
+	// fmt.Printf("Terminal width := %d\n",terminalWidth)
+
+	//Remove the following code block to get rid of the blank space at the right side of the terminal
+	//From here
 	if terminalWidth>100{
 		if bound.Dx()>1000{
 
@@ -30,6 +32,7 @@ func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 	}else{
 		terminalWidth-=10
 	}
+	//Till here
 
 	//basically the steps size for the for loops
 	widthFactor := int(bound.Dx()/terminalWidth)
