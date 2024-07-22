@@ -3,6 +3,7 @@ package main
 import (
 	"image"
 	"log"
+	"os"
 
 	"golang.org/x/term"
 )
@@ -12,7 +13,9 @@ func getNewBounds(imageData image.Image) (int, int, *image.RGBA){
 	bound := imageData.Bounds()
 	imageSet:= image.NewRGBA(bound)
 
-	terminalWidth, _,err := term.GetSize(0)
+	//os.Stdout.Fd() for non-Unix systems.
+	//on UNIX-like systems its 0
+	terminalWidth, _,err := term.GetSize(int(os.Stdout.Fd()))
 	if err!=nil{
 		log.Println("Unable to get Terminal Size")
 	}
